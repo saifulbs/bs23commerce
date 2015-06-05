@@ -15,11 +15,11 @@ exports.createOrder = function(model, callback){
 };
 
 exports.getOrder = function(query, callback){
-    Order.find(query, function(err, users) {
+    Order.find(query, function(err, orders) {
         if(err) {
             callback(err);
         }
-        callback(users);
+        callback(orders);
     });
 };
 

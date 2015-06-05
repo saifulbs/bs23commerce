@@ -15,11 +15,11 @@ exports.createProduct = function(model, callback){
 };
 
 exports.getProduct = function(query, callback){
-    Product.find(query, function(err, users) {
+    Product.find(query, function(err, products) {
         if(err) {
             callback(err);
         }
-        callback(users);
+        callback(products);
     });
 };
 

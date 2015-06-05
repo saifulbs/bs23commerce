@@ -15,11 +15,11 @@ exports.createCategory = function(model, callback){
 };
 
 exports.getSettings = function(query, callback){
-    Settings.find(query, function(err, users) {
+    Settings.find(query, function(err, settings) {
         if(err) {
             callback(err);
         }
-        callback(users);
+        callback(settings);
     });
 };
 
