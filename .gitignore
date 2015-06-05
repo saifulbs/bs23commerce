@@ -2,3 +2,11 @@
 /public/bower_components/
 /.idea/
 *.log
+
+# --------------------
+# Node Files
+# --------------------
+.nodemonignore
+npm-debug.log
+node_modules/
+
