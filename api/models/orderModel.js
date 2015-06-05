@@ -24,10 +24,10 @@ var OrderSchema =new Schema({
         default: false
     },
     orderDate:{
-        type: Data
+        type: Date
     },
     deliverDate:{
-        type: Data
+        type: Date
     },
     delivered:{
         type: Boolean,
