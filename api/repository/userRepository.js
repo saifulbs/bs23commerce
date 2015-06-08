@@ -3,8 +3,8 @@
 var User = require('./models/userModel');
 
 
-exports.createUser = function(model, callback){
-    var user = new User(model);
+exports.createUser = function(userModel, callback){
+    var user = new User(userModel);
 
     user.save(function(err) {
         if(err) {
@@ -23,6 +23,15 @@ exports.getUser = function(query, callback){
     });
 };
 
+exports.getUserById = function(query, callback){
+    User.findOne(query, function(err, user) {
+        if(err) {
+            callback(err);
+        }
+        callback(user);
+    });
+};
+
 exports.updateUser = function(conditions, updateData, callback) {
     User.update(conditions, updateData, function(err) {
         if(err) {
@@ -32,11 +41,11 @@ exports.updateUser = function(conditions, updateData, callback) {
     });
 };
 
-exports.deleteUser = function(id, callback) {
-    User.findByIdAndRemove(id, function(err, doc) {
+exports.deleteUserById = function(id, callback) {
+    User.findByIdAndRemove(id, function(err) {
         if(err) {
             return callback(err);
         }
-        callback(null, doc);
+        callback(null);
     });
 };

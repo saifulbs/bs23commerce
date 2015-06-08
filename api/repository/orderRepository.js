@@ -23,6 +23,15 @@ exports.getOrder = function(query, callback){
     });
 };
 
+exports.getOrderById = function(query, callback){
+    Order.find(query, function(err, order) {
+        if(err) {
+            callback(err);
+        }
+        callback(order);
+    });
+};
+
 exports.updateOrder = function(conditions, updateData, callback) {
     Order.update(conditions, updateData, function(err) {
         if(err) {

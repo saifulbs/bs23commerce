@@ -23,6 +23,15 @@ exports.getSettings = function(query, callback){
     });
 };
 
+exports.getSettingsById = function(query, callback){
+    Settings.findOne(query, function(err, setting) {
+        if(err) {
+            callback(err);
+        }
+        callback(setting);
+    });
+};
+
 exports.updateSettings = function(conditions, updateData, callback) {
     Settings.update(conditions, updateData, function(err) {
         if(err) {

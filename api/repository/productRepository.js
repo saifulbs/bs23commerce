@@ -23,6 +23,15 @@ exports.getProduct = function(query, callback){
     });
 };
 
+exports.getProductById = function(query, callback){
+    Product.findOne(query, function(err, product) {
+        if(err) {
+            callback(err);
+        }
+        callback(product);
+    });
+};
+
 exports.updateProduct = function(conditions, updateData, callback) {
     Product.update(conditions, updateData, function(err) {
         if(err) {

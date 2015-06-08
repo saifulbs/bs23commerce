@@ -23,6 +23,15 @@ exports.getCategory = function(query, callback){
     });
 };
 
+exports.getCategoryById = function(query, callback){
+    Category.findOne(query, function(err, categorie) {
+        if(err) {
+            callback(err);
+        }
+        callback(categorie);
+    });
+};
+
 exports.updateCategory = function(conditions, updateData, callback) {
     Category.update(conditions, updateData, function(err) {
         if(err) {
