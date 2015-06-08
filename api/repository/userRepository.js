@@ -15,10 +15,19 @@ exports.createUser = function(userModel, callback){
 };
 
 exports.getUser = function(query, callback){
-    User.find(query, function(err, users) {
+    User.findOne(query, function(err, user) {
        if(err) {
            callback(err);
        }
+        callback(user);
+    });
+};
+
+exports.getUsers = function(query, callback){
+    User.find(query, function(err, users) {
+        if(err) {
+            callback(err);
+        }
         callback(users);
     });
 };
