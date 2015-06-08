@@ -2,6 +2,15 @@
 
 var UserRepository = require('./repository/userRepository');
 
+exports.login = function(searchQuery, callback) {
+    UserRepository.getUser(searchQuery, function(err, user) {
+        if(err) {
+            callback(err, null);
+        }
+        callback(null, user);
+    });
+};
+
 exports.createUser =  function(req, callback) {
     var user = {
         name: req.body.name,
@@ -24,8 +33,8 @@ exports.createUser =  function(req, callback) {
     });
 };
 
-exports.getUser = function(req, callback) {
-    UserRepository.getUser({}, function(err, users) {
+exports.getUsers = function(req, callback) {
+    UserRepository.getUsers({}, function(err, users) {
       if(err) {
           callback(err, null);
       }

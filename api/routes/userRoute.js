@@ -5,7 +5,7 @@ var express = require('express'),
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', userController.getUser);
+router.get('/', userController.getUsers);
 
 router.get('/:userId', userController.getUserById);
 
@@ -17,11 +17,11 @@ router.delete('/:userId', userController.deleteUserById);
 
 router.put('/changePassword', userController.changePassword);
 
+router.put('/changeUserPassword', userController.changeUserPassword);
+
 router.put('/resetForgotPassword', userController.resetForgotPassword);
 
-router.post('/login', function(req, res) {
-  res.send('user');
-});
+router.post('/login', userController.login);
 
 router.get('/logout', function(req, res) {
   res.send('user');

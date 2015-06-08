@@ -81,6 +81,19 @@ var sendMail = function(recipientEmail, subject, htmlBody, callback){
 
 //</editor-fold>
 
+exports.login = function(req, res) {
+    var loginRequest = {
+        email: req.body.email.toLowerCase(),
+        password: User.hashPassword(req.body.password)
+    };
+    UserService.login(loginRequest, function(err, user) {
+        if(err || user === null) {
+            return res.status(400).send({msg: 'Invalid credential !'});
+        }
+        return res.status(200).send(user);
+    });
+};
+
 exports.createUser =  function(req, res) {
     if(!req.user) {
         return res.status(409).send({msg: 'Invalid credential !'});
@@ -94,12 +107,12 @@ exports.createUser =  function(req, res) {
     });
 };
 
-exports.getUser =  function(req, res) {
+exports.getUsers =  function(req, res) {
     if(!req.user) {
         return res.status(409).send({msg: 'Invalid credential !'});
     }
 
-    UserService.getUser(req, function(err, users) {
+    UserService.getUsers(req, function(err, users) {
         if(err) {
             return res.status(400).send(err);
         }
