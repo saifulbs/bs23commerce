@@ -1,7 +1,7 @@
 'use strict';
 
-var UserService = requier('./services/userService'),
-    User        = requier('./models/userModel'),
+var User        = requier('./models/userModel'),
+    UserRepository = require('./repository/userRepository'),
     nodemailer  = require('nodemailer');
 
 //<editor-fold desc='start local functions'>
@@ -86,7 +86,8 @@ exports.login = function(req, res) {
         email: req.body.email.toLowerCase(),
         password: User.hashPassword(req.body.password)
     };
-    UserService.login(loginRequest, function(err, user) {
+
+    UserRepository.getUser(loginRequest, function(err, user) {
         if(err || user === null) {
             return res.status(400).send({msg: 'Invalid credential !'});
         }
@@ -98,8 +99,20 @@ exports.createUser =  function(req, res) {
     if(!req.user) {
         return res.status(409).send({msg: 'Invalid credential !'});
     }
+    var user = {
+        name: req.body.name,
+        username: req.body.email.toLowerCase(),
+        email: req.body.email.toLowerCase(),
+        password: req.body.password,
+        phoneNumber: req.body.phoneNumber,
+        status: 'email-not-verified',
+        addresses: req.body.addresses,
+        gender: req.body.gender,
+        active: req.body.active,
+        roles: req.body.roles
+    };
 
-    UserService.createUser(req, function(err) {
+    UserRepository.createUser(user, function(err) {
         if(err) {
             return res.status(400).send({msg: 'An unhandled error occurred, please try again'});
         }
@@ -112,7 +125,7 @@ exports.getUsers =  function(req, res) {
         return res.status(409).send({msg: 'Invalid credential !'});
     }
 
-    UserService.getUsers(req, function(err, users) {
+    UserRepository.getUsers({}, function(err, users) {
         if(err) {
             return res.status(400).send(err);
         }
@@ -125,7 +138,8 @@ exports.getUserById =  function(req, res) {
         return res.status(409).send({msg: 'Invalid credential !'});
     }
 
-    UserService.getUserById(req, function(err, user) {
+    var query = {_id: req.params.userId};
+    UserRepository.getUserById(query, function(err, user) {
         if(err) {
             return res.status(400).send(err);
         }
@@ -139,9 +153,9 @@ exports.searchUser =  function(req, res) {
     }
 
     generateSearchQuery(req, function(searchQuery) {
-        UserService.searchUser(searchQuery, function(err, users) {
+        UserRepository.getUsers(searchQuery, function(err, users) {
             if(err) {
-                return res.status(400).send(errs);
+                return res.status(400).send(err);
             }
             return res.status(200).send(users);
         });
@@ -153,7 +167,17 @@ exports.updateUser =  function(req, res) {
         return res.status(409).send({msg: 'Invalid credential !'});
     }
 
-    UserService.updateUser(req, function(err) {
+    var updateData = {
+        email: req.body.email,
+        name: req.body.name,
+        phoneNumber: req.body.phoneNumber,
+        addresses: req.body.addresses,
+        roles: req.body.roles,
+        active: req.body.active,
+        gender: req.body.gender
+    };
+
+    UserRepository.updateUser({_id:req.body._id}, updateData, function(err) {
         if(err) {
             return res.status(400).send(err);
         }
@@ -169,8 +193,11 @@ exports.changePassword = function(req, res) {
     if (req.body.password) {
         req.body.password = User.hashPassword(req.body.password);
     }
+    var updateData = {
+        password: req.body.newPassword
+    };
 
-    UserService.changePassword(req, function(err) {
+    UserRepository.updateUser({_id: req.body._id, email: req.user.email, password: req.body.password}, updateData, function(err) {
         if(err) {
             return res.status(400).send(err);
         }
@@ -185,7 +212,12 @@ exports.changeUserPassword =  function(req, res) {
 
     passwordGenerator(req, function(newPassword) {
         req.body.password = newPassword;
-        UserService.changeUserPassword(req, function(err) {
+
+        var updateData = {
+            password: req.body.password
+        };
+
+        UserRepository.updateUser({_id: req.body._id}, updateData, function(err) {
             if(err) {
                 return res.status(400).send(err);
             }
@@ -203,7 +235,11 @@ exports.resetForgotPassword =  function(req, res) {
     var randomPassword= passwordGenerator();
 
     req.body.password = randomPassword;
-    UserService.resetForgotPassword(req, function(err) {
+
+    var updateData = {
+        password: req.body.password
+    };
+    UserRepository.updateUser({email: req.body.email}, updateData, function(err) {
         if(err) {
             return res.status(400).send(err);
         }
@@ -221,8 +257,7 @@ exports.deleteUserById =  function(req, res) {
     if(!req.user) {
         return res.status(409).send({msg: 'Invalid credential !'});
     }
-
-    UserService.deleteUserById(req, function(err) {
+    UserRepository.deleteUserById(req.query.userId, function(err) {
         if(err) {
             return res.status(400).send(err);
         }
