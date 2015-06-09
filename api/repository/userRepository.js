@@ -5,9 +5,10 @@ var User = mongoose.model('User');
 
 exports.createUser = function(userModel, callback){
     var user = new User(userModel);
-
+    console.log(user);
     user.save(function(err) {
         if(err) {
+            console.log(err);
             callback(err);
         }
         callback(null);

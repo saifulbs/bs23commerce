@@ -111,12 +111,12 @@ var UserSchema = Schema({
 /**
  * Virtuals
  */
-UserSchema.virtual('passwords').set(function(password) {
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hashed_password = this.hashPassword(password);
+UserSchema.virtual('hash_password').set(function(password) {
+    //this.password = password;
+    //this.salt = this.makeSalt();
+    this.password = this.hashPassword(password);
 }).get(function() {
-    return this._password;
+    return this.password;
 });
 
 /**
