@@ -111,7 +111,7 @@ var UserSchema = Schema({
 /**
  * Virtuals
  */
-UserSchema.virtual('password').set(function(password) {
+UserSchema.virtual('passwords').set(function(password) {
     this._password = password;
     this.salt = this.makeSalt();
     this.hashed_password = this.hashPassword(password);

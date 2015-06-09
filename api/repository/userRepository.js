@@ -1,14 +1,14 @@
 'use strict';
-
-var User = require('../models/userModel');
-
+var mongoose = require('mongoose');
+require('../models/userModel');
+var User = mongoose.model('User');
 
 exports.createUser = function(userModel, callback){
     var user = new User(userModel);
 
     user.save(function(err) {
         if(err) {
-            return callback(err);
+            callback(err);
         }
         callback(null);
     });
