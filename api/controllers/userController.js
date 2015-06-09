@@ -1,6 +1,6 @@
 'use strict';
 
-var User        = requier('./models/userModel'),
+var User        = require('../models/userModel'),
     UserRepository = require('../repository/userRepository'),
     nodemailer  = require('nodemailer');
 
