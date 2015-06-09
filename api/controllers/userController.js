@@ -1,7 +1,7 @@
 'use strict';
 
 var User        = requier('./models/userModel'),
-    UserRepository = require('./repository/userRepository'),
+    UserRepository = require('../repository/userRepository'),
     nodemailer  = require('nodemailer');
 
 //<editor-fold desc='start local functions'>

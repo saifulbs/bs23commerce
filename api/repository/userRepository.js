@@ -1,6 +1,6 @@
 'use strict';
 
-var User = require('./models/userModel');
+var User = require('../models/userModel');
 
 
 exports.createUser = function(userModel, callback){
