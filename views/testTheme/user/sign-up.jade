@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+   .col-md-12(data-ng-controller='signUpController')
+      form.form-horizontal(name='userForm', novalidate='', style='padding-top: 10px;' data-ng-submit='createNewUser()')
+         .form-group
+            .col-md-3
+               label.required-label(for='emailInput')
+                  i.fa.fa-question-circle.fa-fw
+                  |  Email
+            .col-md-4
+               input#emailInput.form-control(placeholder='email address', oninvalid="setCustomValidity('Please enter a valid email address!')", onchange="try{setCustomValidity('')}catch(e){}", type='email', data-ng-model='user.email', required='')
+         .form-group
+            .col-md-3
+                label.required-label(for='firstName')
+                    i.fa.fa-question-circle.fa-fw
+                    |  First Name
+            .col-md-4
+                input#fullName.form-control(placeholder='first name', type='text', data-ng-model='user.firstName', required='')
+         .form-group
+            .col-md-3
+                label.required-label(for='lastName')
+                    i.fa.fa-question-circle.fa-fw
+                    |  last Name
+            .col-md-4
+                input#fullName.form-control(placeholder='last name', type='text', data-ng-model='user.lastName', required='')
+         .form-group
+            .col-md-3
+                label.required-label(for='phoneNumber')
+                    i.fa.fa-question-circle.fa-fw
+                    |  Phone Number
+            .col-md-4
+               input#phoneNumber.form-control(name='phoneNumber', placeholder='phone number', type='text', ng-model='user.phoneNumber', required='')
+            // <p ng-show="userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine" class="help-block">Phone number is required.</p>
+         .form-group
+            .col-md-3
+               label.required-label(for='password')
+                  i.fa.fa-question-circle.fa-fw
+                  |  Password
+            .col-md-4
+               input#password.form-control(placeholder='Minimum of 6 characters', data-minlength='6', type='password', data-ng-model='user.password', required='')
+
+         .form-group
+            .col-md-3
+               label.required-label(for='male')
+                  i.fa.fa-question-circle.fa-fw
+                  |  Gender
+            .col-md-4
+               label.radio-inline
+                  input#male(type='radio', name='gender', data-ng-model='user.gender', value='male')
+                  |  Male
+               label.radio-inline
+                  input#female(type='radio', name='gender', data-ng-model='user.gender', value='female')
+                  |  Female
+         .form-group
+            .col-md-3
+               label(for='active')
+                  i.fa.fa-question-circle.fa-fw
+                  |  Active
+            .col-md-4
+               label.checkbox-inline
+                  input#active(type='checkbox', data-ng-model='user.active', value='active')
+        .form-group
+            .col-md-3
+                button.btn.btn-default(type='submit') Submit
+                a(href='/testTheme') back to home
+
