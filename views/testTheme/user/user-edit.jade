@@ -1,0 +1,70 @@
+extends ../layout
+
+block content
+    .col-md-12(data-ng-controller="userEditController")
+        form.form-horizontal(style='padding-top: 10px;' ng-submit="userUpdate()")
+            .form-group
+                .col-md-3
+                    label
+                        i.fa.fa-question-circle.fa-fw
+                        |  User ID
+                .col-md-4
+                    di.like-readonly-text-box {{user._id}}
+            .form-group
+                .col-md-3
+                    label(for='emailInput')
+                        i.fa.fa-question-circle.fa-fw
+                        |  Email
+                .col-md-4
+                    input#emailInput.form-control(placeholder='email address', oninvalid="setCustomValidity('Please enter a valid email address!')", onchange="try{setCustomValidity('')}catch(e){}", type='email', data-ng-model='user.email')
+            .form-group
+                .col-md-3
+                    label(for='firstName')
+                        i.fa.fa-question-circle.fa-fw
+                        |  First name
+                .col-md-4
+                    input#firstName.form-control(placeholder='first name', type='text', data-ng-model='user.firstName')
+            .form-group
+                .col-md-3
+                    label(for='lastName')
+                        i.fa.fa-question-circle.fa-fw
+                        |  Last name
+                .col-md-4
+                    input#lastName.form-control(placeholder='last name', type='text', data-ng-model='user.lastName')
+            .form-group
+                .col-md-3
+                    label(for='phoneNumber')
+                        i.fa.fa-question-circle.fa-fw
+                        |  Phone Number
+                .col-md-4
+                    input#phoneNumber.form-control(type='text', ng-model='user.phoneNumber')
+            .form-group
+                .col-md-3
+                    label(for='male')
+                        i.fa.fa-question-circle.fa-fw
+                        |  Gender
+                .col-md-4
+                    label.radio-inline
+                        input#male(type='radio', name='gender', data-ng-model='user.gender', value='male')
+                        |  Male
+                    label.radio-inline
+                        input#female(type='radio', name='gender', data-ng-model='user.gender', value='female')
+                        |  Female
+            .form-group
+                .col-md-3
+                    label
+                        i.fa.fa-question-circle.fa-fw
+                        |  Created on
+                .col-md-4
+                    span  {{user.registrationDate}}
+            .form-group
+                .col-md-3
+                    button.btn.btn-primary(type="submit") Update
+                    a(href="/testTheme/user/list") (back to user list)
+                .col-md-3
+                    button.btn.btn-default(data-ng-click="userDelete(user._id)") Delete User
+        .row
+            .col-md-offset-4.col-md-4.alert-success.text-center(data-ng-show='updateSuccessMsg')
+                label {{updateSuccessMsg}}
+            .col-md-offset-4.col-md-4.alert-danger.text-center(data-ng-show='updateErrorMsg')
+                label {{updateErrorMsg}}

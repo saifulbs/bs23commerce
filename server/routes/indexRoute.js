@@ -18,4 +18,8 @@ router.get('/testTheme/user/list', function(req, res) {
   res.render('testTheme/user/user-list', { title: 'user list' });
 });
 
+router.get('/testTheme/user/:userId', function(req, res) {
+  res.render('testTheme/user/user-edit', { title: 'user edit' });
+});
+
 module.exports = router;

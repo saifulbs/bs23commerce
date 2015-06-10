@@ -131,9 +131,9 @@ exports.getUsers =  function(req, res) {
 };
 
 exports.getUserById =  function(req, res) {
-    if(!req.user) {
-        return res.status(409).send({msg: 'Invalid credential !'});
-    }
+    //if(!req.user) {
+    //    return res.status(409).send({msg: 'Invalid credential !'});
+    //}
 
     var query = {_id: req.params.userId};
     UserRepository.getUserById(query, function(err, user) {
@@ -160,13 +160,14 @@ exports.searchUser =  function(req, res) {
 };
 
 exports.updateUser =  function(req, res) {
-    if(!req.user) {
-        return res.status(409).send({msg: 'Invalid credential !'});
-    }
+    //if(!req.user) {
+    //    return res.status(409).send({msg: 'Invalid credential !'});
+    //}
 
     var updateData = {
         email: req.body.email,
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
         addresses: req.body.addresses,
         roles: req.body.roles,
@@ -251,9 +252,9 @@ exports.resetForgotPassword =  function(req, res) {
 };
 
 exports.deleteUserById =  function(req, res) {
-    if(!req.user) {
-        return res.status(409).send({msg: 'Invalid credential !'});
-    }
+    //if(!req.user) {
+    //    return res.status(409).send({msg: 'Invalid credential !'});
+    //}
     UserRepository.deleteUserById(req.query.userId, function(err) {
         if(err) {
             return res.status(400).send(err);

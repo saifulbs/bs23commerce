@@ -35,16 +35,16 @@ exports.getUsers = function(query, callback){
 exports.getUserById = function(query, callback){
     User.findOne(query, function(err, user) {
         if(err) {
-            callback(err);
+            callback(err, null);
         }
-        callback(user);
+        callback(null, user);
     });
 };
 
 exports.updateUser = function(conditions, updateData, callback) {
     User.update(conditions, updateData, function(err) {
         if(err) {
-            return callback(err);
+            callback(err);
         }
         callback(null);
     });
@@ -53,7 +53,7 @@ exports.updateUser = function(conditions, updateData, callback) {
 exports.deleteUserById = function(id, callback) {
     User.findByIdAndRemove(id, function(err) {
         if(err) {
-            return callback(err);
+            callback(err);
         }
         callback(null);
     });

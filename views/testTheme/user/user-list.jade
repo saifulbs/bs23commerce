@@ -1,8 +1,8 @@
 extends ../layout
 
 block content
-    .row
-        .col-md-12.col-sm-12(data-ng-controller="userListController")
+    .row(data-ng-controller="userListController")
+        .col-md-12.col-sm-12
             table.table.table-responsive.table-bordered.table-striped.table-hover(role='grid')
                 thead.tbl-header
                     tr.row
@@ -28,4 +28,4 @@ block content
                                 i.fa.fa-close
                         td(data-ng-bind='user.registrationDate')
                         td
-                            a(ui-sref='User.Edit({userId: user._id})') Edit
+                            a(href='/testTheme/user/{{user._id}}') Edit
