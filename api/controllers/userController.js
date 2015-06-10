@@ -96,14 +96,12 @@ exports.login = function(req, res) {
 };
 
 exports.createUser =  function(req, res) {
-    if(!req.user) {
-        return res.status(409).send({msg: 'Invalid credential !'});
-    }
     var user = {
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         username: req.body.email.toLowerCase(),
         email: req.body.email.toLowerCase(),
-        password: req.body.password,
+        hash_password: req.body.password,
         phoneNumber: req.body.phoneNumber,
         status: 'email-not-verified',
         addresses: req.body.addresses,
@@ -111,7 +109,6 @@ exports.createUser =  function(req, res) {
         active: req.body.active,
         roles: req.body.roles
     };
-
     UserRepository.createUser(user, function(err) {
         if(err) {
             return res.status(400).send({msg: 'An unhandled error occurred, please try again'});
@@ -121,9 +118,9 @@ exports.createUser =  function(req, res) {
 };
 
 exports.getUsers =  function(req, res) {
-    if(!req.user) {
-        return res.status(409).send({msg: 'Invalid credential !'});
-    }
+    //if(!req.user) {
+    //    return res.status(409).send({msg: 'Invalid credential !'});
+    //}
 
     UserRepository.getUsers({}, function(err, users) {
         if(err) {

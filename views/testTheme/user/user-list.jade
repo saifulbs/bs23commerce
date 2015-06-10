@@ -1,3 +1,31 @@
-//
-   Created by shaishab on 6/10/15.
+extends ../layout
 
+block content
+    .row
+        .col-md-12.col-sm-12(data-ng-controller="userListController")
+            table.table.table-responsive.table-bordered.table-striped.table-hover(role='grid')
+                thead.tbl-header
+                    tr.row
+                        th ID
+                        th Email
+                        th First Name
+                        th Last Name
+                        th Users roles
+                        th Active
+                        th Created on
+                        th Edit
+                tbody
+                    tr.row(data-ng-repeat='user in users')
+                        td(data-ng-bind='user._id')
+                        td(data-ng-bind='user.email')
+                        td(data-ng-bind='user.firstName')
+                        td(data-ng-bind='user.lastName')
+                        td(data-ng-bind='user.roles')
+                        td.text-center
+                            span(data-ng-show='user.active')
+                                i.fa.fa-check
+                            span(data-ng-show='!user.active')
+                                i.fa.fa-close
+                        td(data-ng-bind='user.registrationDate')
+                        td
+                            a(ui-sref='User.Edit({userId: user._id})') Edit

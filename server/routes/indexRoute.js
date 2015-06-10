@@ -14,4 +14,8 @@ router.get('/testTheme/user/signUp', function(req, res) {
   res.render('testTheme/user/sign-up', { title: 'sign-up' });
 });
 
+router.get('/testTheme/user/list', function(req, res) {
+  res.render('testTheme/user/user-list', { title: 'user list' });
+});
+
 module.exports = router;
