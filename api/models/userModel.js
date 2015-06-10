@@ -104,7 +104,7 @@ var UserSchema = Schema({
     },
     password: {
         type: String,
-        validate: [validatePresenceOf, 'Password cannot be blank']
+        required: true
     }
 });
 
@@ -112,8 +112,8 @@ var UserSchema = Schema({
  * Virtuals
  */
 UserSchema.virtual('hash_password').set(function(password) {
-    //this.password = password;
-    //this.salt = this.makeSalt();
+    this.password = password;
+    this.salt = this.makeSalt();
     this.password = this.hashPassword(password);
 }).get(function() {
     return this.password;

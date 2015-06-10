@@ -10,6 +10,8 @@ var bodyParser = require('body-parser');
 
 var allRoutes = require('./server/routes/allRoutes');
 var allApiRoutes = require('./api/routes/allApiRoutes');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/bs23commerce');
 
 var app = express();
 

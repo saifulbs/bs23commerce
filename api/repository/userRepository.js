@@ -1,14 +1,13 @@
 'use strict';
 var mongoose = require('mongoose');
-require('../models/userModel');
+    require('../models/userModel');
 var User = mongoose.model('User');
 
 exports.createUser = function(userModel, callback){
     var user = new User(userModel);
-    console.log(user);
+    //user.password = user.hashPassword(userModel.password);;
     user.save(function(err) {
         if(err) {
-            console.log(err);
             callback(err);
         }
         callback(null);
@@ -27,9 +26,9 @@ exports.getUser = function(query, callback){
 exports.getUsers = function(query, callback){
     User.find(query, function(err, users) {
         if(err) {
-            callback(err);
+            callback(err, null);
         }
-        callback(users);
+        callback(null, users);
     });
 };
 
