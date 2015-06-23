@@ -104,15 +104,14 @@ var UserSchema = Schema({
     },
     password: {
         type: String,
-        required: true
+        validate: [validatePresenceOf, 'Password cannot be blank']
     }
 });
 
 /**
  * Virtuals
  */
-UserSchema.virtual('hash_password').set(function(password) {
-    this.password = password;
+UserSchema.virtual('passwords').set(function(password) {
     this.salt = this.makeSalt();
     this.password = this.hashPassword(password);
 }).get(function() {
@@ -194,6 +193,7 @@ UserSchema.methods = {
      *
      * @returns {*|Array|Binary|Object}
      */
+
     toJSON: function() {
         var obj = this.toObject();
         delete obj.hashed_password;
