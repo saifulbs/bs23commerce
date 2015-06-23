@@ -1,4 +1,6 @@
 'use strict'
+// app_modules available to access from anywhere, no relative path needed anymore
+require('app-module-path').addPath(__dirname + '/app_modules');
 
 var express = require('express');
 var path = require('path');
@@ -31,6 +33,10 @@ allRoutes.init(app);
 allApiRoutes.init(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

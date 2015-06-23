@@ -8,24 +8,24 @@ var auth = require('auth');
 /* GET users listing. */
 router.get('/', userController.getUsers);
 
-router.get('/:userId', userController.getUserById);
+router.get('/:adminId', userController.getUserById);
 
 router.post('/', userController.createUser);
 
 router.put('/', userController.updateUser);
 
-router.delete('/:userId', userController.deleteUserById);
+router.delete('/:adminId', userController.deleteUserById);
 
 router.put('/changePassword', userController.changePassword);
 
-router.put('/changeUserPassword', userController.changeUserPassword);
+router.put('/changeAdminPassword', userController.changeUserPassword);
 
 router.put('/resetForgotPassword', userController.resetForgotPassword);
 
-router.post('/login',auth, userController.login);
+router.post('/login', auth, userController.login);
 
 router.get('/logout', function(req, res) {
-  res.send('user');
+    res.send('user');
 });
 
 module.exports = router;
