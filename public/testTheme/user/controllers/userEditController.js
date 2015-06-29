@@ -36,7 +36,7 @@ angular.module('bs23commerce').controller('userEditController', ['$scope', '$loc
               $timeout(function() {
                   $scope.updateSuccessMsg = '';
 
-                  $location.path('/testTheme/user/list');
+                  $location.path('testTheme/user/list');
               },2000);
           }).error(function(err) {
                 console.log('error');
